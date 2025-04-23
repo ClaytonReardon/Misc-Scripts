@@ -104,9 +104,14 @@ echo "R installation completed."
 
 echo -e "${GRN}\nCreating Users 'paul' and 'dermatology'...\n${RST}"
 sudo adduser --shell /bin/zsh paul
-sudo usermod -aG sudo paul
-sudo adduser --shell /bin/zsh --group sudo dermatology
-sudo usermod -aG sudo dermatology
+sudo chage -d 0 paul # Require password change on first login
+sudo usermod -aG sudo paul # add to sudo group
+sudo wget https://github.com/ClaytonReardon/LinUtil/raw/refs/heads/main/zshrc -O /home/paul/.zshrc
+
+sudo adduser --shell /bin/zsh dermatology
+sudo chage -d 0 dermatology # Require password change on first login
+sudo usermod -aG sudo dermatology # add to sudo group
+sudo wget https://github.com/ClaytonReardon/LinUtil/raw/refs/heads/main/zshrc -O /home/dermatology/.zshrc
 
 # echo
 # echo -e "${GRN}Beginning python package installation...${RST}"
