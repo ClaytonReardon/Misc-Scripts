@@ -15,19 +15,19 @@ command_exists() {
   command -v "$1" >/dev/null 2>&1
 }
 # Check if Nala is installed
-echo "Checking if Nala is installed..."
+echo -e "\n${GRN}Checking if Nala is installed...${RST}\n"
 if ! command_exists nala; then
-    echo "Nala is not installed. Installing..."
+    echo -e "${GRN}Nala is not installed. Installing...\n${RST}"
     sudo apt install nala -y;
 fi
 
 # Update package list
-echo
-echo "Updating apt…"
+echo -e "${GRN}\nUpdating nala…\n${RST}"
 sudo nala update
 
 # Packages to install
 packages=(
+  zsh
   neofetch
   terminator
   mercurial
@@ -87,15 +87,13 @@ packages=(
 )
 
 # Install in one shot
-echo
-echo "Installing ${#packages[@]} packages..."
+echo -e "\n${GRN}Installing ${#packages[@]} packages...\n${RST}"
 sudo nala install -y "${packages[@]}"
-echo "Installation of packages completed."
+echo -e "${GRN}Installation of packages completed.\n${RST}"
 
 # Install R
 # Add R key & repo
-echo
-echo "Installing R"
+echo -e "\n${GRN}Installing R\n${RST}"
 wget -qO- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc \
     | sudo tee -a /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc
 echo "deb https://cloud.r-project.org/bin/linux/ubuntu $(lsb_release -cs)-cran40/" \
@@ -104,8 +102,12 @@ sudo nala update
 sudo nala install r-base r-base-dev -y
 echo "R installation completed."
 
-echo
-echo -e "${GRN}Beginning python package installation...${RST}"
+echo -e "${GRN}\nCreating Users 'paul' and 'dermatology'...\n${RST}"
+sudo adduser --shell /bin/zsh --group sudo paul
+sudo adduser --shell /bin/zsh --group sudo dermatology
+
+# echo
+# echo -e "${GRN}Beginning python package installation...${RST}"
 
 # Python packages for paul, and alfred, separated into 2 scripts by user
 
@@ -232,59 +234,59 @@ echo "Cleaning up..."
 cd ..
 rm -rf $install_dir
 
-echo
-echo "To test installations:
+# echo
+# echo "To test installations:
 
-Sleap:
-conda activate sleap
-sleap-label
-(Opens GUI)
+# Sleap:
+# conda activate sleap
+# sleap-label
+# (Opens GUI)
 
-DeepLabCut:
-conda activate deeplabcut
-python -m deeplabcut
-(Opens GUI)
+# DeepLabCut:
+# conda activate deeplabcut
+# python -m deeplabcut
+# (Opens GUI)
 
-Phy2:
-conda activate phy2
-phy --help
+# Phy2:
+# conda activate phy2
+# phy --help
 
-Biobakery/Humann/Metaphlan:
-conda activate biobakery3
-humann --help
-metaphlan --help
+# Biobakery/Humann/Metaphlan:
+# conda activate biobakery3
+# humann --help
+# metaphlan --help
 
-Fastp:
-conda activate fastp
-fastp --help
+# Fastp:
+# conda activate fastp
+# fastp --help
 
-Bracken:
-conda activate bracken
-bracken --help
+# Bracken:
+# conda activate bracken
+# bracken --help
 
-Kraken2:
-conda activate kraken2
-kraken2 --help
+# Kraken2:
+# conda activate kraken2
+# kraken2 --help
 
-MPA:
-conda activate mpa
-mpa-portable 
-(should start with "--exec-dir=PATH")
+# MPA:
+# conda activate mpa
+# mpa-portable 
+# (should start with "--exec-dir=PATH")
 
-Picrust1:
-conda activate picrust1
-evalutate_test_datasets.py --help
+# Picrust1:
+# conda activate picrust1
+# evalutate_test_datasets.py --help
 
-Picrust2:
-conda activate picrust2
-picrust2_pipeline.py --help
+# Picrust2:
+# conda activate picrust2
+# picrust2_pipeline.py --help
 
-Kilosort:
-conda activate kilosort
-python -m kilosort
-(Should start with 'Binary path is none'
-If this doesn't work, it's likely a 
-graphics driver issue. Verify Nvidia drivers
-are up to date and running.)" > "$installation_test_file"
+# Kilosort:
+# conda activate kilosort
+# python -m kilosort
+# (Should start with 'Binary path is none'
+# If this doesn't work, it's likely a 
+# graphics driver issue. Verify Nvidia drivers
+# are up to date and running.)" > "$installation_test_file"
 
-echo -e "${GRN}Installation test instructions saved to "$installation_test_file"${RST}
+# echo -e "${GRN}Installation test instructions saved to "$installation_test_file"${RST}

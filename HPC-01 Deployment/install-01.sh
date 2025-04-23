@@ -7,7 +7,7 @@ RST='\033[0m'
 
 echo -e "${GRN}\nUpdating system and installing basic dependencies...\n${RST}"
 sudo apt update && sudo apt upgrade -y
-sudo apt install git curl open-vm-tools open-vm-tools-desktop -y
+sudo apt install curl open-vm-tools open-vm-tools-desktop -y
 
 echo -e "${GRN}\nInstalling desktop environment...\n${RST}"
 sudo apt install ubuntu-desktop -y

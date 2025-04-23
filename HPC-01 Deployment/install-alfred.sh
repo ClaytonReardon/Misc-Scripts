@@ -1,4 +1,14 @@
 #!/bin/bash
+set -euo pipefail
+
+GRN='\033[1;32m'
+RED='\033[1;31m'
+RST='\033[0m'
+
+if ! [[ $USER == "dermatology" ]]; then
+    echo -e "${RED}This script is intended for the user 'dermatology'. Please run it as 'dermatology'.${RST}"
+    exit 1
+fi
 
 mkdir -p ~/install_dir
 install_dir=~/install_dir
