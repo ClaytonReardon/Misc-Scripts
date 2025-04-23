@@ -103,8 +103,10 @@ sudo nala install r-base r-base-dev -y
 echo "R installation completed."
 
 echo -e "${GRN}\nCreating Users 'paul' and 'dermatology'...\n${RST}"
-sudo adduser --shell /bin/zsh --group sudo paul
+sudo adduser --shell /bin/zsh paul
+sudo usermod -aG sudo paul
 sudo adduser --shell /bin/zsh --group sudo dermatology
+sudo usermod -aG sudo dermatology
 
 # echo
 # echo -e "${GRN}Beginning python package installation...${RST}"
