@@ -102,16 +102,32 @@ sudo nala update
 sudo nala install r-base r-base-dev -y
 echo "R installation completed."
 
-echo -e "${GRN}\nCreating Users 'paul' and 'dermatology'...\n${RST}"
+wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/FiraMono.zip
+mkdir -p /usr/local/share/fonts/FiraMono
+sudo unzip FiraMono.zip -d  /usr/local/share/fonts/FiraMono
+rm FiraMono.zip
+sudo fc-cache -fv
+
+echo '#!/bin/bash
+gsettings set org.gnome.desktop.interface monospace-font-name "FiraCode Nerd Font Mono 12"
+gsettings set org.gnome.desktop.interface font-name "FiraCode Nerd Font 11"' > /etc/profile.d/set-default-font.sh
+sudo chmod +x /etc/profile.d/set-default-font.sh
+
+echo -e "${GRN}\nCreating users 'paul'\n${RST}"
 sudo adduser --shell /bin/zsh paul
 sudo chage -d 0 paul # Require password change on first login
 sudo usermod -aG sudo paul # add to sudo group
-sudo wget https://github.com/ClaytonReardon/LinUtil/raw/refs/heads/main/zshrc -O /home/paul/.zshrc
+sudo cp ../zshrc /home/paul/.zshrc
+sudo mkdir -p /home/paul/.config
+sudo cp ../starship.toml /home/paul/.config/starship.toml
 
+echo -e "${GRN}\nCreating users 'dermatology'\n${RST}"
 sudo adduser --shell /bin/zsh dermatology
 sudo chage -d 0 dermatology # Require password change on first login
 sudo usermod -aG sudo dermatology # add to sudo group
-sudo wget https://github.com/ClaytonReardon/LinUtil/raw/refs/heads/main/zshrc -O /home/dermatology/.zshrc
+sudo cp ../zshrc /home/dermatology/.zshrc
+sudo mkdir -p /home/dermatology/.config
+sudo cp ../starship.toml /home/dermatology/.config/starship.toml
 
 # echo
 # echo -e "${GRN}Beginning python package installation...${RST}"
