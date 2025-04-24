@@ -10,6 +10,11 @@ install_dir=$(pwd)
 command_exists() {
   command -v "$1" >/dev/null 2>&1
 }
+
+pkg_isntalled() {
+  dpkg -s "$1" &> /dev/null
+}
+
 # Check if Nala is installed
 echo -e "\n${GRN}Checking if Nala is installed...${RST}\n"
 if ! command_exists nala; then
@@ -88,15 +93,20 @@ sudo nala install -y "${packages[@]}"
 echo -e "${GRN}Installation of packages completed.\n${RST}"
 
 # Install R
-# Add R key & repo
-echo -e "\n${GRN}Installing R\n${RST}"
-wget -qO- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc \
-    | sudo tee -a /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc
-echo "deb https://cloud.r-project.org/bin/linux/ubuntu $(lsb_release -cs)-cran40/" \
-    | sudo tee -a /etc/apt/sources.list
-sudo nala update
-sudo nala install r-base r-base-dev -y
-echo "R installation completed."
+if pkg_installed r-base && pkgs_installed r-base-dev; then
+  echo -e "${GRN}R-Base and R-base-dev are already installed - Skipping."
+else
+  echo -e "${GRN}R-Base and R-base-dev are not installed - Installing."
+  # Add R key & repo
+  echo -e "\n${GRN}Installing R\n${RST}"
+  wget -qO- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc \
+      | sudo tee -a /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc
+  echo "deb https://cloud.r-project.org/bin/linux/ubuntu $(lsb_release -cs)-cran40/" \
+      | sudo tee -a /etc/apt/sources.list
+  sudo nala update
+  sudo nala install r-base r-base-dev -y
+  echo "R installation completed."
+fi
 
 echo -e "${GRN}\nCreating user 'paul'\n${RST}"
 sudo adduser --shell /bin/zsh paul
