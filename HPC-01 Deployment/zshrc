@@ -1,6 +1,6 @@
 # Set Zinit directory, and install if needed
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
-[ ! -d $ZINIT_HOME ] && mkdir -p "$(dirname $ZINIT_HOME)"
+[ ! -d $ZINIT_HOME ] && echo -e "\n\nSETTING UP SHELL\n\n" && mkdir -p "$(dirname $ZINIT_HOME)"
 [ ! -d $ZINIT_HOME/.git ] && git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
 source "${ZINIT_HOME}/zinit.zsh"
 
@@ -95,7 +95,7 @@ fi
 
 if ! command_exists starship; then
     echo "Starship not found. Installing..."
-    curl -sS https://starship.rs/install.sh | bash
+    curl -sS https://starship.rs/install.sh | sh
 fi
 
 if ! directory_exists ~/.config; then

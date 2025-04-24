@@ -5,7 +5,7 @@ set -euo pipefail
 GRN='\033[1;32m'
 RST='\033[0m'
 installation_test_file="~/installation_test.txt"
-install_dir=${pwd}
+install_dir=$(pwd)
 
 command_exists() {
   command -v "$1" >/dev/null 2>&1
@@ -97,8 +97,6 @@ echo "deb https://cloud.r-project.org/bin/linux/ubuntu $(lsb_release -cs)-cran40
 sudo nala update
 sudo nala install r-base r-base-dev -y
 echo "R installation completed."
-
-cd $install_dir
 
 echo -e "${GRN}\nCreating user 'paul'\n${RST}"
 sudo adduser --shell /bin/zsh paul
