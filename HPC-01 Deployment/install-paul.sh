@@ -1,8 +1,6 @@
 #!/bin/bash
 set -euo pipefail
 
-source "$HOME/anaconda3/etc/profile.d/conda.sh"
-
 GRN='\033[1;32m'
 RED='\033[1;31m'
 RST='\033[0m'
@@ -18,10 +16,11 @@ if ! [[ -d "/home/paul/anaconda3" ]]; then
     chmod +x Anaconda3-2024.10-1-Linux-x86_64.sh \ 
     ./Anaconda3-2024.10-1-Linux-x86_64.sh \ 
     rm -rf Anaconda3-2024.10-1-Linux-x86_64.sh \ 
-    conda init \ 
     exec zsh"
     exit 1
 fi
+
+source "$HOME/anaconda3/etc/profile.d/conda.sh"
 
 # Install Sleap.ai
 echo
@@ -59,29 +58,3 @@ python -m pip install kilosort[gui]
 # export QT_QPA_PLATFORM=xcb
 conda deactivate
 echo "Kilosort install completed."
-
-echo "To test installations:
-
-Sleap:
-conda activate sleap
-sleap-label
-(Opens GUI)
-
-DeepLabCut:
-conda activate deeplabcut
-python -m deeplabcut
-(Opens GUI)
-
-Phy2:
-conda activate phy2
-phy --help
-
-Kilosort:
-conda activate kilosort
-python -m kilosort
-(Should start with 'Binary path is none'
-If this doesn't work, it's likely a 
-graphics driver issue. Verify Nvidia drivers
-are up to date and running.)" > "~/installation_test.txt"CONDA 
-
-echo -e "${GRN}Installation test instructions saved to "~/installation_test.txt"${RST}

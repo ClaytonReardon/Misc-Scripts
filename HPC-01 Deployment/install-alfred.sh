@@ -1,8 +1,6 @@
 #!/bin/bash
 set -euo pipefail
 
-source "$HOME/anaconda3/etc/profile.d/conda.sh"
-
 GRN='\033[1;32m'
 RED='\033[1;31m'
 RST='\033[0m'
@@ -17,11 +15,12 @@ if ! [[ -d "/home/dermatology/anaconda3" ]]; then
     echo "wget https://repo.anaconda.com/archive/Anaconda3-2024.10-1-Linux-x86_64.sh \ 
     chmod +x Anaconda3-2024.10-1-Linux-x86_64.sh \ 
     ./Anaconda3-2024.10-1-Linux-x86_64.sh \ 
-    rm -rf Anaconda3-2024.10-1-Linux-x86_64.sh \ 
-    conda init \ 
+    rm -rf Anaconda3-2024.10-1-Linux-x86_64.sh \  
     exec zsh"
     exit 1
 fi
+
+source "$HOME/anaconda3/etc/profile.d/conda.sh"
 
 # Install R in Anaconda
 echo
