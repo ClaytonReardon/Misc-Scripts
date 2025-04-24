@@ -11,18 +11,14 @@ if ! [[ $USER == "paul" ]]; then
     exit 1
 fi
 
-mkdir -p ~/install_dir
-install_dir=~/install_dir
-installation_test_file="$install_dir/installation_test.txt"
-cd "$install_dir"
-
-# Install Anaconda
-echo
-echo -e "${GRN}Installing Anaconda${RST}"
-wget https://repo.anaconda.com/archive/Anaconda3-2024.10-1-Linux-x86_64.sh 
-chmod +x Anaconda3-2024.10-1-Linux-x86_64.sh
-./Anaconda3-2024.10-1-Linux-x86_64.sh
-echo "Anaconda install completed."
+if ! [[ -d "/home/paul/anaconda3" ]]; then
+    echo -e "${RED}Anaconda3 not found. Please install Anaconda3 first. Use the following command:${RST}"
+    echo "wget https://repo.anaconda.com/archive/Anaconda3-2024.10-1-Linux-x86_64.sh \ 
+    chmod +x Anaconda3-2024.10-1-Linux-x86_64.sh \ 
+    ./Anaconda3-2024.10-1-Linux-x86_64.sh \ 
+    exec zsh"
+    exit 1
+fi
 
 # Install Sleap.ai
 echo
