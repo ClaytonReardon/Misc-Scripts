@@ -11,7 +11,7 @@ command_exists() {
   command -v "$1" >/dev/null 2>&1
 }
 
-pkg_isntalled() {
+pkg_installed() {
   dpkg -s "$1" &> /dev/null
 }
 
@@ -115,7 +115,11 @@ sudo usermod -aG sudo paul # add to sudo group
 sudo cp "$install_dir/zshrc" /home/paul/.zshrc
 sudo mkdir -p /home/paul/.config
 sudo cp "$install_dir/starship.toml" /home/paul/.config/starship.toml
-sudo cp "$install_dir/install-alfred.sh" /home/paul
+sudo cp "$install_dir/install-paul.sh" /home/paul
+sudo cp "$install_dir/pauL_test.txt" /home/paul
+sudo chown -R paul:paul /home/paul/.zshrc
+sudo chown -R paul:paul /home/paul/.config
+
 
 echo -e "${GRN}\nCreating user 'dermatology'\n${RST}"
 sudo adduser --shell /bin/zsh dermatology
@@ -125,3 +129,6 @@ sudo cp "$install_dir/zshrc" /home/dermatology/.zshrc
 sudo mkdir -p /home/dermatology/.config
 sudo cp "$install_dir/starship.toml" /home/dermatology/.config/starship.toml
 sudo cp "$install_dir/install-alfred.sh" /home/dermatology
+sudo cp "$install_dir/alfred_test.txt" /home/dermatology
+sudo chown -R dermatology:dermatology /home/dermatology/.zshrc
+sudo chown -R dermatology:dermatology /home/dermatology/.config

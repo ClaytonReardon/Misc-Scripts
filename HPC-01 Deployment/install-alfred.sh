@@ -1,6 +1,8 @@
 #!/bin/bash
 set -euo pipefail
 
+source "$HOME/anaconda3/etc/profile.d/conda.sh"
+
 GRN='\033[1;32m'
 RED='\033[1;31m'
 RST='\033[0m'
@@ -15,6 +17,8 @@ if ! [[ -d "/home/dermatology/anaconda3" ]]; then
     echo "wget https://repo.anaconda.com/archive/Anaconda3-2024.10-1-Linux-x86_64.sh \ 
     chmod +x Anaconda3-2024.10-1-Linux-x86_64.sh \ 
     ./Anaconda3-2024.10-1-Linux-x86_64.sh \ 
+    rm -rf Anaconda3-2024.10-1-Linux-x86_64.sh \ 
+    conda init \ 
     exec zsh"
     exit 1
 fi
@@ -22,15 +26,15 @@ fi
 # Install R in Anaconda
 echo
 echo -e "${GRN}Installing R in Anaconda${RST}"
-conda create --name r_env r-essentials r-base
+conda create -n r_env r-essentials r-base
 echo "R in Anaconda install completed."
 
 # Install Fastp
 echo
 echo -e "${GRN}Installing Fastp${RST}"
-conda create –name fastp
+conda create -n fastp
 conda activate fastp
-conda install -c bioconda fastpconda install
+conda install -c bioconda fastp
 conda deactivate
 echo "Fastp install completed."
 
@@ -41,8 +45,8 @@ conda config --add channels defaults
 conda config --add channels bioconda
 conda config --add channels conda-forge
 conda config --add channels biobakery
-conda create --name biobakery3 python=3.7
-echo "Biobakery install completed."
+conda create -n biobakery3 python=3.7
+echo "Biobakery install completed."CONDA
 
 # Install Humann and Metaphlan
 echo
@@ -79,6 +83,13 @@ conda install mpa-portable -c bioconda
 conda deactivate
 echo "MPA install completed."
 
+# Install Picrust2
+echo
+echo -e "${GRN}Installing Picrust2${RST}"
+conda create -n picrust2
+conda activate picrust2
+conda install bioconda::picrust2
+
 # Install Picrust1
 echo
 echo -e "${GRN}Installing Picrust1${RST}"
@@ -87,18 +98,6 @@ conda activate picrust1
 conda install sjanssen2::picrust1
 conda deactivate
 echo "Picrust1 install completed."
-
-# Install Picrust2
-echo
-echo -e "${GRN}Installing Picrust2${RST}"
-conda create -n picrust2
-conda activate picrust2
-conda install bioconda::picrust2
-
-echo
-echo "Cleaning up..."
-cd ..
-rm -rf $install_dir
 
 echo "To test installations:
 
@@ -131,6 +130,6 @@ evalutate_test_datasets.py --help
 Picrust2:
 conda activate picrust2
 picrust2_pipeline.py --help
-" > "$installation_test_file"
+" > "~/installation_test.txt"
 
-echo -e "${GRN}Installation test instructions saved to "$installation_test_file"${RST}
+echo -e "${GRN}Installation test instructions saved to "~/installation_test.txt"${RST}
