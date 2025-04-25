@@ -132,3 +132,11 @@ sudo cp "$install_dir/install-alfred.sh" /home/dermatology
 sudo cp "$install_dir/dermatology_test.txt" /home/dermatology
 sudo chown -R dermatology:dermatology /home/dermatology/.zshrc
 sudo chown -R dermatology:dermatology /home/dermatology/.config
+
+# Enable RDP
+sudo nala install xrdp -y
+sudo adduser xrdp ssl-cert
+sudo systemctl enable xrdp
+systemctl status xrdp
+# Allow RDP through firewall
+sudo ufw allow 3389/tcp

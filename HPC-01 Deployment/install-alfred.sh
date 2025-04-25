@@ -97,38 +97,3 @@ conda activate picrust1
 conda install sjanssen2::picrust1
 conda deactivate
 echo "Picrust1 install completed."
-
-echo "To test installations:
-
-Biobakery/Humann/Metaphlan:
-conda activate biobakery3
-humann --help
-metaphlan --help
-
-Fastp:
-conda activate fastp
-fastp --help
-
-Bracken:
-conda activate bracken
-bracken --help
-
-Kraken2:
-conda activate kraken2
-kraken2 --help
-
-MPA:
-conda activate mpa
-mpa-portable 
-(should start with "--exec-dir=PATH")
-
-Picrust1:
-conda activate picrust1
-evalutate_test_datasets.py --help
-
-Picrust2:
-conda activate picrust2
-picrust2_pipeline.py --help
-" > "~/installation_test.txt"
-
-echo -e "${GRN}Installation test instructions saved to "~/installation_test.txt"${RST}
